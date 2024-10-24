@@ -1,8 +1,0 @@
-.navbar ul .nav-link {
-  color: #ccc;
-  text-decoration: underline;
-}
-
-.navbar ul .nav-link.active {
-  color: white;
-}

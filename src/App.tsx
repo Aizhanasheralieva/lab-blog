@@ -1,21 +1,25 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './containers/Home/Home.tsx';
-import Add from './containers/Add/Add.tsx';
-import About from './containers/About/About.tsx';
-import Contacts from './containers/Contacts/Contacts.tsx';
-import Toolbar from './components/Toolbar/Toolbar.tsx';
+import Navbar from "./components/Navbar/Navbar.tsx";
+import { Container, Typography } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import Home from "./containers/Home/Home.tsx";
+import PostForm from "./containers/PostForm/PostForm.tsx";
 
-const App = () =>
-  (
-    <>
-      <Toolbar/>
+const App = () => (
+  <>
+    <header>
+      <Navbar />
+    </header>
+    <Container maxWidth="lg">
       <Routes>
-        <Route path="/posts" element={<Home />} />
-        <Route path="/new-post" element={<Add />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contacts" element={<Contacts />}/>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/new-post" element={<PostForm />}></Route>
+        <Route
+          path="*"
+          element={<Typography variant="h3">Page not found</Typography>}
+        ></Route>
       </Routes>
-    </>
-  );
+    </Container>
+  </>
+);
 
 export default App;
