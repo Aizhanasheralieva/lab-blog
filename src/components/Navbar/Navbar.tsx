@@ -3,14 +3,14 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <Box sx={{ flexGrow: 1, mb: 5 }}>
+    <Box sx={{flexGrow: 1, mb: 5}}>
       <AppBar position="static">
         <Toolbar>
           <Typography
             color="inherit"
             variant="h3"
             component={NavLink}
-            sx={{ flexGrow: 1, textDecoration: "none", padding: 4 }}
+            sx={{flexGrow: 1, textDecoration: 'none', padding: 4}}
             to="/"
           >
             My Blog

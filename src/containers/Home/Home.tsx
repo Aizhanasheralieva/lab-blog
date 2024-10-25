@@ -13,7 +13,7 @@ const Home = () => {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
-      const response: { data } = await axiosAPI<IPostAPI>("posts.json");
+      const response: { data } = await axiosAPI<IPostAPI>('posts.json');
 
       if (response.data) {
         const postsFromAPI = Object.keys(response.data).map((postKey) => {
@@ -22,8 +22,6 @@ const Home = () => {
             ...response.data[postKey],
           };
         });
-
-        console.log(postsFromAPI);
 
         setPosts(postsFromAPI);
       }
@@ -38,31 +36,32 @@ const Home = () => {
     void fetchData();
   }, [fetchData]);
 
-
   return (
     <>
-      {loading ? <Loader/> :
-      <>
-        <Grid container spacing={2} sx={{mb: 5}}>
-          <Grid item xs={4} md={4}>
-          {posts.length === 0 ? (
-            <p>Any posts found!</p>
-          ) : (
-            <>
-              {posts.map((post) => (
-                <Grid key={post.id}>
-                    <PostItem post={post} />
-                </Grid>
-              ))}
-            </>
-          )}
+      {loading ? (
+        <Loader/>
+      ) : (
+        <>
+          <Grid container spacing={2} sx={{mb: 5}}>
+            <Grid item xs={4} md={3}>
+              {posts.length === 0 ? (
+                <p>Any posts found!</p>
+              ) : (
+                <>
+                  {posts.map((post) => (
+                    <Grid key={post.id}>
+                      <PostItem post={post}/>
+                    </Grid>
+                  ))}
+                </>
+              )}
+            </Grid>
+            <Grid xs={4} md={4}>
+              <Outlet/>
+            </Grid>
           </Grid>
-          <Grid item xs={4} md={4}>
-            <Outlet/>
-          </Grid>
-        </Grid>
-      </>
-      }
+        </>
+      )}
     </>
   );
 };

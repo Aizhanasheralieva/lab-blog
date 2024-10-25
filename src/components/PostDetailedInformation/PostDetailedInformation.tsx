@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Card,
   CardActions,
   CardContent,
   Typography,
-} from "@mui/material";
-import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
-import Grid from "@mui/material/Grid2";
-import axiosAPI from "../../axiosAPI.ts";
-import dayjs from "dayjs";
+} from '@mui/material';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import Grid from '@mui/material/Grid2';
+import axiosAPI from '../../axiosAPI.ts';
+import dayjs from 'dayjs';
 import Loader from '../UI/Loader/Loader.tsx';
-import PostForm from '../PostForm/PostForm.tsx';
 
 const PostDetailedInformation = () => {
   const [post, setPost] = useState(null);
@@ -39,7 +38,7 @@ const PostDetailedInformation = () => {
     try {
       if (params.idPost) {
         await axiosAPI.delete(`posts/${params.idPost}.json`);
-        navigate("/posts");
+        navigate('/posts');
       }
     } catch (e) {
       console.error(e);
@@ -49,21 +48,22 @@ const PostDetailedInformation = () => {
   return (
     <>
       {loading ? (
-        <Loader />
+        <Loader/>
       ) : (
         <>
           {post ? (
             <>
               <Grid>
-                <Card sx={{ minWidth: 275 }}>
+                <Card sx={{minWidth: 275}}>
                   <CardContent>
                     <Typography
                       gutterBottom
-                      sx={{ color: "text.secondary", fontSize: 14 }}
+                      sx={{color: 'text.secondary', fontSize: 14}}
                     >
-                      Created on: {dayjs(post.datetime).format("DD.MM.YYYY HH:mm")}
+                      Created on:{' '}
+                      {dayjs(post.datetime).format('DD.MM.YYYY HH:mm')}
                     </Typography>
-                    <Typography variant="h3" sx={{ fontSize: 20, mb: 2 }}>
+                    <Typography variant="h3" sx={{fontSize: 20, mb: 2}}>
                       {post.title}
                     </Typography>
                     <Typography variant="body1">{post.description}</Typography>

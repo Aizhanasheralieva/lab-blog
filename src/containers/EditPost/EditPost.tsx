@@ -1,9 +1,9 @@
-import PostForm from "../../components/PostForm/PostForm.tsx";
+import PostForm from '../../components/PostForm/PostForm.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCallback, useEffect, useState } from "react";
-import { IPost, IPostAPI, IPostForm } from "../../types";
-import axiosAPI from "../../axiosAPI.ts";
-import Loader from "../../components/UI/Loader/Loader.tsx";
+import { useCallback, useEffect, useState } from 'react';
+import { IPost, IPostAPI, IPostForm } from '../../types';
+import axiosAPI from '../../axiosAPI.ts';
+import Loader from '../../components/UI/Loader/Loader.tsx';
 
 const EditPost = () => {
   const [post, setPost] = useState<IPost>();
@@ -28,13 +28,10 @@ const EditPost = () => {
     }
   }, [params.idPost]);
 
-  console.log("Params ID" + params.idPost);
-
   const submitForm = async (postData: IPostForm) => {
     try {
       await axiosAPI.put(`posts/${params.idPost}.json`, postData);
       navigate('/');
-      console.log(postData);
     } catch (e) {
       console.error(e);
     }
@@ -44,18 +41,17 @@ const EditPost = () => {
     if (params.idPost) {
       void fetchOnePost();
     }
-
-    // console.log(params);
   }, [params.idPost, fetchOnePost]);
+
   return (
     <>
       {loading ? (
-        <Loader />
+        <Loader/>
       ) : (
         <>
           {post ? (
             <>
-              <PostForm postToEdit={post} submitForm={submitForm} />
+              <PostForm postToEdit={post} submitForm={submitForm}/>
             </>
           ) : null}
         </>

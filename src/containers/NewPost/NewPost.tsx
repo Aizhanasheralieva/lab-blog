@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import PostForm from "../../components/PostForm/PostForm.tsx";
-import { IPostForm } from "../../types";
-import axiosAPI from "../../axiosAPI.ts";
-import Loader from "../../components/UI/Loader/Loader.tsx";
+import React, { useState } from 'react';
+import PostForm from '../../components/PostForm/PostForm.tsx';
+import { IPostForm } from '../../types';
+import axiosAPI from '../../axiosAPI.ts';
+import Loader from '../../components/UI/Loader/Loader.tsx';
 import { useNavigate } from 'react-router-dom';
 
 const NewPost = () => {
@@ -12,7 +12,7 @@ const NewPost = () => {
   const submitForm = async (post: IPostForm) => {
     try {
       setLoading(true);
-      await axiosAPI.post("posts.json", { ...post });
+      await axiosAPI.post('posts.json', {...post});
       navigate('/');
     } catch (e) {
       console.error(e);
@@ -21,7 +21,7 @@ const NewPost = () => {
     }
   };
 
-  return <>{loading ? <Loader /> : <PostForm submitForm={submitForm} />}</>;
+  return <>{loading ? <Loader/> : <PostForm submitForm={submitForm}/>}</>;
 };
 
 export default NewPost;
