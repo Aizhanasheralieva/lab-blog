@@ -1,15 +1,16 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IPostForm } from '../../types';
-import { Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import dayjs from 'dayjs';
+import Textarea from '@mui/material/TextareaAutosize';
 
 
 const initialForm = {
   title: "",
   description: "",
   datetime: "",
-}
+};
 
 interface Props {
   postToEdit?: IPostForm;
@@ -27,7 +28,7 @@ const PostForm: React.FC<Props> = ({postToEdit, submitForm}) => {
     }
   }, [postToEdit]);
 
-  const onShiftArea = (e: React.FormEvent<HTMLFormElement>) => {
+  const onShiftArea = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
 
     setForm(prevState => ({
@@ -73,23 +74,36 @@ const PostForm: React.FC<Props> = ({postToEdit, submitForm}) => {
           />
         </Grid>
         <Grid size={12}>
-          <TextField
-            sx={{width: "100%"}}
-            id="outlined-basic"
-            label="Description"
+          <Box
+            sx={{ py: 2, display: 'grid', gap: 2, alignItems: 'center', flexWrap: 'wrap' }}
+          >
+          <Textarea
+            minRows={7}
             name="description"
+            placeholder="Type in here description..."
+            label="Description"
             variant="outlined"
             value={form.description}
             onChange={onShiftArea}
           />
+          </Box>
+          {/*<TextField*/}
+          {/*  sx={{width: "100%"}}*/}
+          {/*  id="outlined-basic"*/}
+          {/*  label="Description"*/}
+          {/*  name="description"*/}
+          {/*  variant="outlined"*/}
+          {/*  value={form.description}*/}
+          {/*  onChange={onShiftArea}*/}
+          {/*/>*/}
         </Grid>
-        {postToEdit && (
-          <Grid  size={12}>
-            <Typography variant="body1">
-              Created on: {dayjs(postToEdit.datetime).format('DD.MM.YYYY h:mm A')}
-            </Typography>
-          </Grid>
-        )}
+        {/*{postToEdit && (*/}
+        {/*  <Grid  size={12}>*/}
+        {/*    <Typography variant="body1">*/}
+        {/*      Created on: {dayjs(postToEdit.datetime).format('DD.MM.YYYY HH:mm')}*/}
+        {/*    </Typography>*/}
+        {/*  </Grid>*/}
+        {/*)}*/}
         <Grid size={12}>
           <Button type="submit" sx={{width: "100%"}} variant="contained">{postToEdit ? 'Edit' : 'Add'}</Button>
         </Grid>

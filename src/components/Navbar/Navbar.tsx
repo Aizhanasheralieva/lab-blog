@@ -1,5 +1,5 @@
-import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   return (
@@ -8,9 +8,10 @@ const Navbar = () => {
         <Toolbar>
           <Typography
             color="inherit"
-            variant="h6"
+            variant="h3"
             component={NavLink}
-            sx={{ flexGrow: 1, textDecoration: "none" }}
+            sx={{ flexGrow: 1, textDecoration: "none", padding: 4 }}
+            to="/"
           >
             Blog
           </Typography>
@@ -20,8 +21,12 @@ const Navbar = () => {
           <Button color="inherit" to="/posts/new-post" component={NavLink}>
             New post
           </Button>
-          <Button color="inherit" to="/about" component={NavLink}>About</Button>
-          <Button color="inherit" to="/contacts" component={NavLink}>Contacts</Button>
+          <Button color="inherit" to="/about" component={NavLink}>
+            About
+          </Button>
+          <Button color="inherit" to="/contacts" component={NavLink}>
+            Contacts
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
