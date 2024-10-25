@@ -4,20 +4,19 @@ import { IPost, IPostAPI } from '../../types';
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid2';
-import { post } from 'axios';
 import dayjs from 'dayjs';
 
 const Home = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const fetchData = useCallback(async () => {
-    const response: {data: IPostAPI} = await axiosAPI<IPostAPI>('posts.json');
+    const response: {data} = await axiosAPI<IPostAPI>('posts.json');
 
     if (response.data) {
       const postsFromAPI = Object.keys(response.data).map(postKey => {
         return {
           id: postKey,
           ...response.data[postKey],
-        }
+        };
       });
 
       console.log(postsFromAPI);
@@ -47,7 +46,6 @@ const Home = () => {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  {/*<Button size="small" component={NavLink} to={`/posts/${post.id}/edit`}>Edit</Button>*/}
                   <Button size="small" component={NavLink} to={`/posts/${post.id}`}>Read more</Button>
                 </CardActions>
               </Card>

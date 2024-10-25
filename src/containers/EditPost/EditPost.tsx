@@ -1,34 +1,43 @@
 import PostForm from '../../components/PostForm/PostForm.tsx';
 import { useParams } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
-import { IPost, IPostAPI } from '../../types';
+import { IPost, IPostAPI, IPostForm } from '../../types';
 import axiosAPI from '../../axiosAPI.ts';
 
 const EditPost = () => {
   const [post, setPost] = useState<IPost>();
   const params = useParams<{idPost: string}>();
 
-  const fetchOnePost = useCallback(async (id: string | undefined) => {
-    const response: {data: IPostAPI} = await axiosAPI<IPostAPI>(`posts/${id}.json`);
+  const fetchOnePost = useCallback(async () => {
+    const response: {data} = await axiosAPI<IPostAPI>(`posts/${params.idPost}.json`);
 
     if (response.data) {
-      // console.log(response.data);
       setPost(response.data);
     }
-  }, []);
+  }, [params.idPost]);
 
-  console.log(post);
+  console.log('Params ID' + params.idPost);
+
+  const submitForm = async (postData: IPostForm) => {
+    try {
+      await axiosAPI.put(`posts/${params.idPost}.json`, postData);
+      console.log(postData);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
 
   useEffect(() => {
     if (params.idPost) {
-      void fetchOnePost(params.idPost);
+      void fetchOnePost();
     }
 
     // console.log(params);
   }, [params.idPost, fetchOnePost]);
   return post && (
     <div>
-      <PostForm postToEdit={post} />
+      <PostForm postToEdit={post} submitForm={submitForm} />
     </div>
   );
 };

@@ -1,8 +1,7 @@
 import Navbar from "./components/Navbar/Navbar.tsx";
 import { Container, Typography } from "@mui/material";
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes} from 'react-router-dom';
 import Home from "./containers/Home/Home.tsx";
-import PostForm from "./components/PostForm/PostForm.tsx";
 import About from './containers/About/About.tsx';
 import Contacts from './containers/Contacts/Contacts.tsx';
 import NewPost from './containers/NewPost/NewPost.tsx';

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-import { IPostForm } from "../../types";
+import { IPostForm } from '../../types';
 import { Button, TextField, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import axiosAPI from '../../axiosAPI.ts';
 import dayjs from 'dayjs';
-import { post } from 'axios';
 
 
 const initialForm = {
@@ -15,8 +13,9 @@ const initialForm = {
 
 interface Props {
   postToEdit?: IPostForm;
+  submitForm: (post:IPostForm) => void;
 }
-const PostForm: React.FC<Props> = ({postToEdit}) => {
+const PostForm: React.FC<Props> = ({postToEdit, submitForm}) => {
   const [form, setForm] = useState<IPostForm>({...initialForm});
 
   useEffect(() => {
@@ -40,13 +39,13 @@ const PostForm: React.FC<Props> = ({postToEdit}) => {
   const onSubmitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-
     const postData = {
       ...form,
       datetime: dayjs().toISOString(),
     };
 
-    await axiosAPI.post('posts.json', postData);
+    submitForm(postData);
+
     console.log(postData);
     console.log(form);
 
@@ -92,8 +91,7 @@ const PostForm: React.FC<Props> = ({postToEdit}) => {
           </Grid>
         )}
         <Grid size={12}>
-          <Button type="submit" sx={{width: "100%"}} variant="contained">Add</Button>
-          {postToEdit ? 'Edit' : 'Add'}
+          <Button type="submit" sx={{width: "100%"}} variant="contained">{postToEdit ? 'Edit' : 'Add'}</Button>
         </Grid>
       </Grid>
     </form>

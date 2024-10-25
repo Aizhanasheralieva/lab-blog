@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid2';
 import axiosAPI from '../../axiosAPI.ts';
 import dayjs from 'dayjs';
+import { IPost, IPostAPI, IPostForm } from '../../types';
+import axios from 'axios';
 
 const PostDetailedInformation = () => {
-  const { idPost } = useParams();
   const [post, setPost] = useState(null);
-  // const navigate = useNavigate();
+  const params = useParams<{idPost: string}>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost= async () => {
       try {
-        const response = await axiosAPI.get(`posts/${idPost}.json`);
+        const response = await axiosAPI.get(`posts/${params.idPost}.json`);
         setPost(response.data);
       } catch (e) {
         console.error(e);
@@ -21,11 +23,22 @@ const PostDetailedInformation = () => {
     };
 
     void fetchPost();
-  }, [idPost]);
+  }, [params.idPost]);
 
   if (!post) {
-    return <p>Post is being loaded.</p>
+    return <p>Post is being loaded.</p>;
   }
+
+  const deletePost = async () => {
+    try {
+      if (params.idPost) {
+        await axiosAPI.delete(`posts/${params.idPost}.json`);
+        navigate('/');
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Grid>
@@ -40,8 +53,8 @@ const PostDetailedInformation = () => {
           <Typography variant="body1">{post.description}</Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" component={NavLink} to={`/posts/${post.id}/edit`}>Edit</Button>
-          {/*<Button size="small" component={NavLink} to={`/posts/${post.id}`}>Delete</Button>*/}
+          <Button size="small" component={NavLink} to={`/posts/${params.idPost}/edit`}>Edit</Button>
+          <Button size="small" component={NavLink} to={`/posts/${post.id}`} onClick={deletePost}>Delete</Button>
         </CardActions>
       </Card>
     </Grid>
