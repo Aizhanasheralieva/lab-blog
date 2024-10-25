@@ -69,6 +69,7 @@ const PostForm: React.FC<Props> = ({postToEdit, submitForm}) => {
             label="Title"
             name="title"
             variant="outlined"
+            required
             value={form.title}
             onChange={onShiftArea}
           />
@@ -83,27 +84,12 @@ const PostForm: React.FC<Props> = ({postToEdit, submitForm}) => {
             placeholder="Type in here description..."
             label="Description"
             variant="outlined"
+            required
             value={form.description}
             onChange={onShiftArea}
           />
           </Box>
-          {/*<TextField*/}
-          {/*  sx={{width: "100%"}}*/}
-          {/*  id="outlined-basic"*/}
-          {/*  label="Description"*/}
-          {/*  name="description"*/}
-          {/*  variant="outlined"*/}
-          {/*  value={form.description}*/}
-          {/*  onChange={onShiftArea}*/}
-          {/*/>*/}
         </Grid>
-        {/*{postToEdit && (*/}
-        {/*  <Grid  size={12}>*/}
-        {/*    <Typography variant="body1">*/}
-        {/*      Created on: {dayjs(postToEdit.datetime).format('DD.MM.YYYY HH:mm')}*/}
-        {/*    </Typography>*/}
-        {/*  </Grid>*/}
-        {/*)}*/}
         <Grid size={12}>
           <Button type="submit" sx={{width: "100%"}} variant="contained">{postToEdit ? 'Edit' : 'Add'}</Button>
         </Grid>

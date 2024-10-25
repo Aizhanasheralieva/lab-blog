@@ -6,7 +6,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NavLink, Outlet, useNavigate, useParams } from 'react-router-dom';
 import Grid from "@mui/material/Grid2";
 import axiosAPI from "../../axiosAPI.ts";
 import dayjs from "dayjs";
@@ -35,15 +35,11 @@ const PostDetailedInformation = () => {
     void fetchPost();
   }, [params.idPost]);
 
-  // if (!post) {
-  //   return <p>Post is being loaded.</p>;
-  // }
-
   const deletePost = async () => {
     try {
       if (params.idPost) {
         await axiosAPI.delete(`posts/${params.idPost}.json`);
-        navigate("/");
+        navigate("/posts");
       }
     } catch (e) {
       console.error(e);
@@ -82,7 +78,6 @@ const PostDetailedInformation = () => {
                     </Button>
                     <Button
                       size="small"
-                      component={NavLink}
                       to={`/posts/${post.id}`}
                       onClick={deletePost}
                     >

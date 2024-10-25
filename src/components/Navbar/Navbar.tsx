@@ -13,7 +13,7 @@ const Navbar = () => {
             sx={{ flexGrow: 1, textDecoration: "none", padding: 4 }}
             to="/"
           >
-            Blog
+            My Blog
           </Typography>
           <Button color="inherit" to="/" component={NavLink}>
             Home

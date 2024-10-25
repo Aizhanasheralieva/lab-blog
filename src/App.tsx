@@ -16,13 +16,15 @@ const App = () => (
     <Container maxWidth="lg">
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route path="/posts" element={<Home />}></Route>
-        <Route path="/posts/new-post" element={<NewPost />}></Route>
-        <Route path="/posts/:idPost/edit" element={<EditPost />}></Route>
-        <Route
-          path="/posts/:idPost"
-          element={<PostDetailedInformation />}
-        ></Route>
+        <Route path="/posts" element={<Home />}>
+          <Route path="/posts/new-post" element={<NewPost />}></Route>
+          <Route
+            path="/posts/:idPost"
+            element={<PostDetailedInformation />}
+          ></Route>
+
+          <Route path="/posts/:idPost/edit" element={<EditPost />}></Route>
+        </Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/contacts" element={<Contacts />}></Route>
         <Route

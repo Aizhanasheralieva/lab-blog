@@ -1,17 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
-import axiosAPI from "../../axiosAPI.ts";
-import { IPost, IPostAPI } from "../../types";
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
-import { NavLink } from "react-router-dom";
-import Grid from "@mui/material/Grid2";
-import dayjs from "dayjs";
+import { useCallback, useEffect, useState } from 'react';
+import axiosAPI from '../../axiosAPI.ts';
+import { IPost, IPostAPI } from '../../types';
+import { Outlet } from 'react-router-dom';
+import Grid from '@mui/material/Grid2';
 import Loader from '../../components/UI/Loader/Loader.tsx';
+import PostItem from '../../components/PostItem/PostItem.tsx';
 
 const Home = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
@@ -45,44 +38,28 @@ const Home = () => {
     void fetchData();
   }, [fetchData]);
 
+
   return (
     <>
       {loading ? <Loader/> :
       <>
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{mb: 5}}>
+          <Grid item xs={4} md={4}>
           {posts.length === 0 ? (
             <p>Any posts found!</p>
           ) : (
             <>
               {posts.map((post) => (
                 <Grid key={post.id}>
-                  <Card sx={{ minWidth: 275 }}>
-                    <CardContent>
-                      <Typography
-                        gutterBottom
-                        sx={{ color: "text.secondary", fontSize: 14 }}
-                      >
-                        Created on:{" "}
-                        {dayjs(post.datetime).format("DD.MM.YYYY HH:mm")}
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: 20 }}>
-                        {post.title}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button
-                        size="small"
-                        component={NavLink}
-                        to={`/posts/${post.id}`}
-                      >
-                        Read more
-                      </Button>
-                    </CardActions>
-                  </Card>
+                    <PostItem post={post} />
                 </Grid>
               ))}
             </>
           )}
+          </Grid>
+          <Grid item xs={4} md={4}>
+            <Outlet/>
+          </Grid>
         </Grid>
       </>
       }
